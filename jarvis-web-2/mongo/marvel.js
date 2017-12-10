@@ -2,42 +2,45 @@ let api = require('marvel-api')
 let MongoClient = require('mongodb').MongoClient
 
 class Marvel {
-  constructor() {
+  constructor(){
     this.marvel = api.createClient({
-      publicKey: '88d94ed2d3a4159d2dda9f675b56e9e3',
-      privateKey: 'a3560506677dbdf3c14192a7e87840a248cc849b'
+      publicKey: '918f85fcee5fcbce1be9ee02a33d804e',
+      privateKey: '661ebe24c9a5b75f41fc2f556af5cff6b4d7f24d'
     })
-    this.url = 'mongodb://localhost27017/MarvelAPI'
+  this.url = 'mongodb://localhost:27017/Marvel'
   }
-
-  getData(callback) {
+  getData(){
     this.marvel.characters.findAll()
-      .then((heroes) => {
-        heroes.data.forEach((hero) => {
-          console.log(hero.name)
-          console.log(hero.description)
-          // Next Steps create Array of Objects that mongo can digest
-        })   
+    .then((heroes) => {
+      heroes.data.forEach((hero) => {
+        console.log(hero.name)
+        console.log(hero.description)
+        // Next Steps Create Array of Objects That Mongo can digest
+        
       })
-      .fail(console.err)
-      .done
-  }
+    })
+    .fail(console.err)
+    .done
 
-  insertDocuments(docs) {
+  }
+  insertDocuments(docs){
     MongoClient.connect(this.url, (err,db) => {
-      if(!err) {
-        // let collection = db.collection('heroes')
-        console.log('we are connected to Mongo!')
-          db.close()
+      if(!err){
+       // let collection = db.collection('heroes')
+     console.log('connected to mongo')
+        db.close()
+
       }
-      else {
+      else{
         console.log(err)
+
       }
 
     })
 
   }
+
 }
 
-module.exports = Marvel
+module.exports = Marvel 
 
